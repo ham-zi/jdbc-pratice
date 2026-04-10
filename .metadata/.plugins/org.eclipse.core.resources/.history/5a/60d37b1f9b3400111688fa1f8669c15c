@@ -1,0 +1,96 @@
+package com.kh.start.run;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class InsertRun {
+
+	public static void main(String[] args) {
+		//jdbc맛보기
+		/*
+		 * Java를 사용하지 않았을 때 Zone 테이블에 한 행 인서트하려면 어떤 절차가 필요해씾?
+		 * 
+		 * 1. 디비버 실행 (클라이언트 프로그램)
+		 * 2. 접속하기(콘센트)
+		 * 3. oracle선택
+		 * 4. ip주소 ,port번호, 사용자이름, 비밀번호로 연결
+		 * 5. 새 sql편집기를 만든다
+		 * 6. insert문 작성 => insert into zone values('값', '값', '값')
+		 * 7. sql문을 실행
+		 * 8. updatedRows :1을 확인한다
+		 * 9. commit
+		 * 
+		 * 자바에서 코드로 작성할 때
+		 * 각 번호에 해당하는 목적을 항상 상기하며 배우자
+		 */
+		
+		// 자바에서는 oracle선택 후 접속
+		
+		// JDBC API
+		
+		Connection conn = null;
+		Statement stmt = null;
+		int result = 0;
+		
+		// 사용자가 입력한 dbms로 보내서 => zone테이블에 insert
+		// 1. 입력값의 개수와 자료형과
+		Scanner sc = new Scanner(System.in);
+		
+		String sql = "INSERT INTO ZONE VALUES('50','테스트', '테스트')";
+		
+		//나는 오라클 DBMS에다가 작업할거다!
+		// oracle.jdbc.driver.OracleDriver.class로 연결
+		// 자바의 리플렉션을 사용해서 동적으로 클래스 로드 -> 동적으로 클래스 정보를 불러올수있는 기능
+		// 프로그램 시작하면 클래스에 다 올라가는게 맞는데, 리플렉션을 사용하면 실행 도중에 변경할수있음
+		
+		//리플렉션
+		try {
+			//리플렉션을 사용해서 동적으로 클래스 로드
+			// 1) JDBC Driver 등록 -> ORACLE -> ojdbc.jar (11쓰고있음)
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver등록 성공");
+			
+			// 2) DB서버와 연결 (ip주소, port번호, 사용자이름 , 비밀번호 ) 
+			// url = 유니폼리소스리케이천 -> ip와 port번호
+			// url 양식은 오라클버전, "jdbc:oracle:thin" 각 dbms마다 다르다.
+			//DriverManager.getConnection("jdbc:oracle:thin@본인iP:port번호:XE", "사용자이름", "비밀번호");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE",
+											   "C##DS",
+										   	   "DS");
+			System.out.println("연결성공");
+			
+			//학습을 위해 오토커밋 끄기
+			conn.setAutoCommit(false);
+			
+			// 3) 새 sql편집기 열기
+			stmt = conn.createStatement();
+			System.out.println("statement객체 생성 성공");
+			// 4) SQL문 실행
+			// executeUpdate(DML문) : int
+			result = stmt.executeUpdate(sql);
+			System.out.println("sql문 실행 성공!");
+			
+			if(result > 0) {
+				conn.commit();
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}

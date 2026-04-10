@@ -1,0 +1,100 @@
+package com.kh.start.run;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SelectRun {
+
+	public static void main(String[] args) {
+		//각자 작업중인 DB서버에서
+		//각자 자신의 계정에 존재하는 ZONE테이블의 모든행을 조회해서
+		// 이클립스 콘솔창에 출력
+		// SELECT문
+		// ResultSet(조회된 행들의 집합)
+		// => ResultSet 모양의 데이터를 받아서 뽑기
+
+		// 0)필요한 변수들 세팅
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = """
+				        SELECT
+				               ZONE_ID
+				             , ZONE_NAME
+				             , ZONE_TYPE
+				          FROM
+				               ZONE
+				         ORDER
+				            BY
+				               ZONE_ID DESC 
+					 """;
+		// 1)JDBC DRIVER등록
+		// 리플렉션을 이용한 드라이버 클래스 로딩
+		// 실행시점에 필요한 데이터베이스 드라이버를 동적으로 로드
+		// 코드의 변경 없이 데이터베이스를 연결할 수 있게 하기 위해서
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("오라클드라이버등록");
+			// 2. Connetion 객체 생성 - > 오라클 실행
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
+											   "C##DS",
+											   "DS");
+			System.out.println("연결성공");
+			// 3. Statement 객체 생성 -> 새 편집기 생성
+			stmt = conn.createStatement();
+			// 4. 
+			// stmt.executeUpdate(sql); -> SQL문이 INSER UPDATE DELETE 일 때 사용
+			// never Null!!  조회결과없는 경우 0행을 반환!
+			rset = stmt.executeQuery(sql);
+			// System.out.println(rset);
+			//행 개수만큼 반복해야한다. -> 행을 모른다 -> while
+			// rset.next() 커서
+			while(rset.next()) {
+				// 커서를 조작했을 때 행이 있다면 true/ 없다면 false
+				String zoneID = rset.getString("ZONE_ID");
+				String zoneName = rset.getString("ZONE_NAME");
+				String zoneTpye = rset.getString("ZONE_TYPE");
+				
+				System.out.println("번호: "+ zoneID
+							 + ", 구역명:" + zoneName
+							 + ", 구역타입:" + zoneTpye);
+			}
+			
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("ojdbc 추가x");
+			System.out.println("driver주소 오타");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("connetion 오타");
+			System.out.println("계정,비밀번호 오타");
+			System.out.println("sql문 문법 오타");
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rset !=null && !rset.isClosed() ) {
+					rset.close();
+				}
+				
+				if(stmt !=null && !rset.isClosed() ) {
+					stmt.close();
+				}
+				if(conn !=null && !rset.isClosed() ) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		
+		
+	}
+
+}

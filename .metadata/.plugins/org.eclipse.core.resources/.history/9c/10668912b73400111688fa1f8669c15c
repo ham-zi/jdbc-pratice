@@ -1,0 +1,42 @@
+package com.kh.run;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class SelectRun {
+
+	
+	public static void main(String[] agrs) {
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		//오라클 DB 연결
+		
+		System.out.println("Product를 검색합니다.");
+		
+		String sql = """
+				 		SELECT
+				 		       PRODUCT_NO
+				 		     , FRUIT_NAME
+				 		     , FRUIT_STOCK
+				 		     , PRODUCT_PRICE  
+				 		  FROM
+				 		       PRODUCT
+					 """;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("오라클 DB 연결 성공");
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+}

@@ -1,0 +1,23 @@
+package com.kh.run;
+
+public class SelectRun {
+
+	
+	public static void main(String[] agrs) {
+		
+		
+		//오라클 연결
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("오라클 DB 연결 성공");
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+}
