@@ -1,0 +1,14 @@
+package com.kh.dao;
+
+import java.util.Scanner;
+
+public class InsertOrderList {
+
+	Scanner sc;
+	public InsertOrderList(Scanner sc) {
+		this.sc = sc;
+	}
+	
+	
+	
+}

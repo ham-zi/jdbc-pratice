@@ -1,0 +1,12 @@
+package com.kh.dao;
+
+import java.util.Scanner;
+
+public class InsertCheckCard {
+	
+	private Scanner sc;
+	public InsertCheckCard(Scanner sc) {
+		this.sc = sc;
+	}
+
+}

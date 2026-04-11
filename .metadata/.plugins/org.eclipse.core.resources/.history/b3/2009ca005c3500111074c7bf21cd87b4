@@ -1,0 +1,37 @@
+package com.kh.view;
+
+import java.util.Scanner;
+
+import com.kh.dao.InsertProductRun;
+import com.kh.dao.SelectProductRun;
+
+public class View {
+	
+	
+	public void mainMenu(String user, String password) {
+		Scanner sc = new Scanner(System.in);
+		InsertProductRun ipdtr = new InsertProductRun(sc);
+		SelectProductRun spdtr = new SelectProductRun();
+		
+		while(true) {
+			
+			System.out.println("===============");
+			System.out.println("1 : [INSERT]PRODUCT ");
+			System.out.println("2 : [INSERT]CONSUMER ");
+			System.out.println("3 : [INSERT]CHECKCARD ");
+			System.out.println("4 : [INSERT]ORDER ");
+			System.out.println("5 : [INSERT]ORDER_LIST ");
+			System.out.println("6 : [SELECT]PRODUCT ");
+			System.out.println("7 : [SELECT]CONSUMER ");
+			System.out.println("8 : [SELECT]CHECKCARD ");
+			System.out.println("9 : [SELECT]ORDER ");
+			System.out.println("10 : [SELECT]ORDER_LIST ");
+			System.out.println("11 : 프로그램 종료");
+			System.out.println("===============");
+			System.out.println();
+			System.out.print("메뉴 입력 >");
+			
+		}
+	}
+
+}

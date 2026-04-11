@@ -1,0 +1,59 @@
+package com.kh.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SelectCheckCard {
+	
+	
+	public void selectCheckCard(String url, String user, String password) {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rset = null;
+		String sql = """
+						 SELECT
+						        CHECKCARD_ID
+						      , BANK
+						      , ACCOUNT
+						      , CARD_NO
+						      , CONSUMER_NO
+						   FROM
+						        CHECKCARD
+						  ORDER
+						     BY
+						        CHECKCARD_ID
+					 """;
+		
+		
+		try (Connection conn = DriverManager.getConnection(url, user, password);
+			 Statement stmt = conn.createStatement() ) {
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				String cardId = rset.getString("CHECKCARD_ID");
+				String bank = rset.getString("BANK");
+				String account = rset.getString("ACCOUNT");
+				String cardNo = rset.getString("CARD_NO");
+				String csmNo = rset.getString("CONSUMER_NO");
+				
+				System.out.println("[체크카드ID:"+cardId+", 은행:"+bank+", 잔고:"+account+", 카드번호:"+cardNo +", 소비자번호:"+ csmNo +"]");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

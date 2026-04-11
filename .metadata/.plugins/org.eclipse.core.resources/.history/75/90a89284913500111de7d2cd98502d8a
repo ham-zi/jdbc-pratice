@@ -1,0 +1,10 @@
+package com.kh.dao;
+
+public class SelectOrderList {
+	
+	
+	public void selectOrderList(String url, String user, String password) {
+		
+	}
+
+}

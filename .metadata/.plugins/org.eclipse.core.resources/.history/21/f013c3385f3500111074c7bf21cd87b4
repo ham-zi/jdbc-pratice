@@ -1,0 +1,41 @@
+package com.kh.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class InsertConsumer {
+	
+	private Scanner sc;
+	
+	public InsertConsumer(Scanner sc) {
+		this.sc = sc;
+	}
+	
+	public void insertConsumer(String url, String user, String password) {
+	
+		int updateLows;
+		//1단계 오라클 드라이버 연결
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("드라이버 연결 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try( Connection conn = DriverManager.getConnection(url, user, password);
+			 Statement stmt = conn.createStatement()){
+			System.out.println("연결 및 새 편집기 생성 완료");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

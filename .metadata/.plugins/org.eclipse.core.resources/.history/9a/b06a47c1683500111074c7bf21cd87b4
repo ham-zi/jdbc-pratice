@@ -1,0 +1,10 @@
+package com.kh.dao;
+
+public class SelectCheckCard {
+	
+	
+	public void selectCheckCard(String url, String user, String password) {
+		
+	}
+
+}

@@ -1,0 +1,10 @@
+package com.kh.dao;
+
+public class InsertConsumer {
+	
+	public void insertConsumer(String user, String password) {
+	
+		
+	}
+
+}

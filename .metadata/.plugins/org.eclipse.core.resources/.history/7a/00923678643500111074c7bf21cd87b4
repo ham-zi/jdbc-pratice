@@ -1,0 +1,21 @@
+package com.kh.dao;
+
+import java.util.Scanner;
+
+public class InsertCheckCard {
+	
+	private Scanner sc;
+	public InsertCheckCard(Scanner sc) {
+		this.sc = sc;
+	}
+
+	
+	public void insertCheckCard(String url, String user, String password) {
+		
+		
+		Class.forName("oracle.jdcb.driver.OracleDriver");
+		System.out.println("드라이버연결성공");
+		
+		
+	}
+}

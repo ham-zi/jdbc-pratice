@@ -1,0 +1,17 @@
+package com.kh.dao;
+
+public class SelectConsumer {
+	
+	public void selectConsumer(String url, String user, String password) {
+		
+		try {
+			Class.forName("Oracle.jdbc.driver.OracleDriver");
+			System.out.println("드라이버 연결 성공");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
