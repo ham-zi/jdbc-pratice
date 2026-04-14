@@ -72,14 +72,39 @@ public class View {
 		}
 	}
 	
+	private void select() {
+		while(true) {
+			System.out.println("검색기능 선택");
+			System.out.println("1 : 상품");
+			System.out.println("2 : 구매자");
+			System.out.println("3 : 체크카드");
+			System.out.println("4 : 주문서");
+			System.out.println("5 : 상품주문");
+			System.out.println("6 : 프로그램 종료");
+			
+			System.out.print("선택>");
+			String num = sc.nextLine();
+			
+			switch(num) {
+			case "1" : selectProduct();break;
+			case "2" : break;
+			case "3" : break;
+			case "4" : break;
+			case "5" : break;
+			case "6" : break;
+			default : return;
+			}
+		}
+	}
+	
 	private void insertProduct() {
 		System.out.println("상품에 대한 정보 입력");
 		System.out.print("과일이름>");
 		String pname = sc.nextLine();
 		System.out.print("과일개수>");
-		int stock = sc.nextInt();
+		String stock = sc.nextLine();
 		System.out.print("상품가격>");
-		int price = sc.nextInt();
+		String price = sc.nextLine();
 		sc.nextLine();
 		
 		ProductDto pdto = new ProductDto(pname,stock,price);
@@ -93,6 +118,9 @@ public class View {
 		
 	}
 	
+	private void selectProduct() {
+		
+	}
 	
 
 }

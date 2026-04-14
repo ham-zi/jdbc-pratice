@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.model.dto.OracleDto;
+import com.kh.model.dto.ProductDto;
 
 public class OrderSelectDao {
 
@@ -16,7 +19,7 @@ public class OrderSelectDao {
 		this.oracleDto = oracleDto;
 	}
 	
-	{
+	static {
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -182,10 +185,11 @@ public class OrderSelectDao {
 	}
 	
 	
-	public void selectProduct() {
+	public List<ProductDto> selectProduct() {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rset = null;
+		List<ProductDto> list = new ArrayList<>();
 		//오라클 DB 연결
 		
 		System.out.println("Product를 검색합니다.");
@@ -210,10 +214,8 @@ public class OrderSelectDao {
 				String pname = rset.getString("FRUIT_NAME");
 				String stock = rset.getString("FRUIT_STOCK");
 				String price = rset.getString("PRODUCT_PRICE");
-				System.out.println("[상품번호:"+pno
-								+	", 과일:"+pname
-								+	", 개수:"+stock
-								+   ", 가격:"+price +"]");
+				ProductDto product = new ProductDto(pno,pname,stock,price);
+				list.add(product);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -263,9 +265,10 @@ public class OrderSelectDao {
 		
 		//자원반납이 필요해지는 객체생성을 try()구문에서 하면 되지 않나?
 	
-		
+	return list;	
 	}
 	
 
+	
 	
 }

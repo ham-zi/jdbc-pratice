@@ -4,7 +4,15 @@ public class ProductDto {
 	
 	private String productNo;
 	private String fruitName;
-	private int fruitStock;
+	private String fruitStock;
+	private String fruitPrice;
+	public ProductDto(String productNo, String fruitName, String fruitStock, String fruitPrice) {
+		super();
+		this.productNo = productNo;
+		this.fruitName = fruitName;
+		this.fruitStock = fruitStock;
+		this.fruitPrice = fruitPrice;
+	}
 	public String getProductNo() {
 		return productNo;
 	}
@@ -17,32 +25,23 @@ public class ProductDto {
 	public void setFruitName(String fruitName) {
 		this.fruitName = fruitName;
 	}
-	public int getFruitStock() {
+	public String getFruitStock() {
 		return fruitStock;
 	}
-	public void setFruitStock(int fruitStock) {
+	public void setFruitStock(String fruitStock) {
 		this.fruitStock = fruitStock;
 	}
-	public int getProductPrice() {
-		return productPrice;
+	public String getFruitPrice() {
+		return fruitPrice;
 	}
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
+	public void setFruitPrice(String fruitPrice) {
+		this.fruitPrice = fruitPrice;
 	}
-	public ProductDto(String fruitName, int fruitStock, int productPrice) {
+	public ProductDto(String fruitName, String fruitStock, String fruitPrice) {
 		super();
 		this.fruitName = fruitName;
 		this.fruitStock = fruitStock;
-		this.productPrice = productPrice;
+		this.fruitPrice = fruitPrice;
 	}
-	public ProductDto(String productNo, String fruitName, int fruitStock, int productPrice) {
-		super();
-		this.productNo = productNo;
-		this.fruitName = fruitName;
-		this.fruitStock = fruitStock;
-		this.productPrice = productPrice;
-	}
-	private int productPrice;
-
-
+	
 }

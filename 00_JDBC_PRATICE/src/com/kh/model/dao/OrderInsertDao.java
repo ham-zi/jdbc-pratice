@@ -11,7 +11,7 @@ import com.kh.model.dto.ProductDto;
 
 public class OrderInsertDao {
 
-	{
+	static {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -19,11 +19,13 @@ public class OrderInsertDao {
 			e.printStackTrace();
 		}
 	}
+	
+	private OracleDto oracleDto;
+
 	public OrderInsertDao(OracleDto oracleDto) {
 		this.oracleDto = oracleDto;
 	}
 
-	private OracleDto oracleDto;
 	
 	
 	public void insertCheckCard() {
@@ -192,25 +194,25 @@ public class OrderInsertDao {
 	
 	
 	public int insertProduct(ProductDto pdto) {
-		// TODO Auto-generated method stub
-		Scanner sc = new Scanner(System.in);
+
 		Connection conn = null;
 		Statement stmt = null;
 		int rset = 0;
 		
-
+		
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO PRODUCT (FRUIT_NAME,FRUIT_STOCK,PRODUCT_PRICE) VALUES(");
 		sb.append("'"+pdto.getFruitName()+"'");
-		sb.append(","+pdto.getFruitStock());
-		sb.append(","+pdto.getProductPrice()+")");
+		sb.append(",'"+pdto.getFruitStock()+"'");
+		sb.append(",'"+pdto.getFruitPrice()+"')");
 		String sql = sb.toString();
 		
 		//1. 오라클 DB 켜기 driver
 		try {
 			System.out.println("드라이버 연결 성공");
 
-
+			System.out.println(oracleDto.getUrl());
 			conn = DriverManager.getConnection(oracleDto.getUrl(), oracleDto.getUser(), oracleDto.getPassword());
 			System.out.println("로그인성공");
 			stmt = conn.createStatement();
@@ -225,7 +227,7 @@ public class OrderInsertDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			sc.close();
+
 			try {
 				if(stmt != null && !stmt.isClosed()) {
 					stmt.close();
