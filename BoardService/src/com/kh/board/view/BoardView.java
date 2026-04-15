@@ -3,6 +3,7 @@ package com.kh.board.view;
 import java.util.Scanner;
 
 import com.kh.board.controller.BoardController;
+import com.kh.board.model.dto.BoardDto;
 import com.kh.member.model.dto.MemberDto;
 
 public class BoardView {
@@ -67,6 +68,13 @@ public class BoardView {
 		String title = sc.nextLine();
 		System.out.print("내용 : ");
 		String content = sc.nextLine();
+		if(title.isBlank() || content.isBlank()) {
+			System.out.println("제목이나 내용이 적지 않으셨습니다.");
+		}
+		
+		BoardDto dto = new BoardDto(title,content);
+		int result = bc.createBoard(dto);
+		
 	}
 
 	private void updateBoard() {

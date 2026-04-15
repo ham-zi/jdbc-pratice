@@ -1,9 +1,8 @@
 package com.kh.board.model.service;
 
+import com.kh.board.model.dao.BoardDao;
+
 public class BoardService {
 
-	public BoardService() {
-		// TODO Auto-generated constructor stub
-	}
-
+	BoardDao bd = new BoardDao();
 }

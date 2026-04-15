@@ -1,9 +1,14 @@
 package com.kh.board.controller;
 
+import com.kh.board.model.dto.BoardDto;
+import com.kh.board.model.service.BoardService;
+
 public class BoardController {
 
-	public BoardController() {
-		// TODO Auto-generated constructor stub
+	BoardService bs = new BoardService();
+	
+	public int createBoard(BoardDto dto) {
+		return bs.createBoard(dto);
 	}
-
+	
 }
