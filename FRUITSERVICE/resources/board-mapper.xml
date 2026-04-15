@@ -42,8 +42,7 @@
 		 WHERE
 		       BOARD_NO = ?
 	</entry>
-
-
+	
 	<entry key = "selectMyBoards">
 		SELECT
 	           BOARD_NO
@@ -57,4 +56,25 @@
 		   AND
 		       C.CONSUMER_NO = F.CONSUMER_NO
 	</entry>
+	
+	<entry key="updateBoard">
+		UPDATE
+		       FRUIT_BOARD
+		   SET 
+		       BOARD_TITLE = ?
+		     , BOARD_CONTENT = ?
+		 WHERE
+		       BOARD_NO = ?       
+	</entry>
+	
+	<entry key="deleteBoard">
+		DELETE
+		  FROM
+		       FRUIT_BOARD
+		 WHERE
+		       BOARD_NO = ?
+	</entry>
+	
+	
+	
 </properties>

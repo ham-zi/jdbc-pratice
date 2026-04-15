@@ -84,7 +84,7 @@ public class BoardView {
 			boardNo = sc.nextInt(); 
 			sc.nextLine();
 		} catch (InputMismatchException e) {
-			System.out.println("게시글의 숫자를 입력해주세요.");
+			System.out.println("게시글의 번호를 입력해주세요.");
 		}
 		BoardDto board = bc.selectBoard(boardNo);
 		if(board != null) {
@@ -118,15 +118,49 @@ public class BoardView {
 	}
 
 	private void updateBoard() {
+		System.out.println("내 게시글 목록");
 		selectMyBoards();
 		System.out.println("게시글 수정합니다.");
-		System.out.println("번호 입력 >");
+		System.out.print("수정할 게시글 번호 입력 >");
+		int boardNo=0;
+		try{
+			boardNo = sc.nextInt(); 
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("게시글의 번호를 입력해주세요.");
+		}
+		System.out.print("수정 제목 >");
+		String title = sc.nextLine();
+		System.out.print("수정 내용 >");
+		String content = sc.nextLine();
+		
+		int result = bc.updateBoard(new BoardDto(boardNo,consumer.getConsumerNo(),title,content,null));
+		if(result > 0) {
+			System.out.println("게시글 수정 성공");
+		} else {
+			System.out.println("게시글 수정 실패");
+		}
 	}
 	
 	private void deleteBoard() {
+		System.out.println("내 게시글 목록");
 		selectMyBoards();
 		System.out.println("게시글 삭제합니다.");
-		System.out.println("번호 입력 >");
+		System.out.println("게시글 번호 입력 >");
+		int boardNo=0;
+		try{
+			boardNo = sc.nextInt(); 
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("게시글의 번호를 입력해주세요.");
+		}
+		
+		int result = bc.deleteBoard(boardNo);
+		if(result>0) {
+			System.out.println("게시글 삭제 성공");
+		} else {
+			System.out.println("게시글 삭제 실패");
+		}
 	}
 	
 	private void selectMyBoards() {

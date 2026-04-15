@@ -28,4 +28,13 @@ public class BoardController {
 		return bs.selectMyBoards(csmNo);
 	}
 	
+	public int updateBoard(BoardDto board) {
+		return bs.updateBoard(board);
+	}
+	
+	public int deleteBoard(int boardNo) {
+		return bs.deleteBoard(boardNo);
+	}
+	
+	
 }

@@ -117,4 +117,32 @@ public class BoardDao {
 		return list;
 	}
 	
+	public int updateBoard(Connection conn, BoardDto board) {
+		int result = 0;
+		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("updateBoard"))){
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setInt(3, board.getBoardNo());
+			result = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+	
+	public int deleteBoard(Connection conn, int boardNo) {
+		int result = 0;
+		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("deleteBoard"))){
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
