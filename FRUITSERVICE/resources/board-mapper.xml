@@ -1,80 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<comment>BOARD</comment>
 
-	<entry key = "createBoard">
-		INSERT 
+	<mapper namespace="boardMapper">
+
+		<insert id="createBoard" parameterType="board">
+			INSERT 
 	      INTO 
 	           FRUIT_BOARD 
 		       (
 		       CONSUMER_NO
 		     , BOARD_TITLE
-		     , BOARD_CONTENT 
+		     , BOARD_CONTENT
 		       )	           	
 		VALUES
 		       (
-		       ?
-		     , ?
-		     , ?
-		       )      
-	</entry>
-	
-	<entry key = "selectBoards">
-		SELECT
-		       BOARD_NO
-		     , BOARD_TITLE
-		     , CONSUMER_ID
+		       #{consumerNo}
+		     , #{title}
+		     , #{content}
+		       )   
+		</insert>
+
+
+		<select id="selectBoards" resultType="board">
+			SELECT
+		      BOARD_NO boardNo
+			 , CONSUMER_NO consumerNo
+			 , BOARD_TITLE title
+			 , BOARD_CONTENT content
+			 , WRITEN_DATE wirtenDate
 		  FROM
 		       FRUIT_BOARD
 		  JOIN
 		       CONSUMER USING(CONSUMER_NO)
-	</entry>
+		</select>
 
-	<entry key = "selectBoard">
-		SELECT
-			   BOARD_TITLE
-			 , BOARD_CONTENT
-			 , WRITEN_DATE
+
+		<select id="selectBoard" resultType="board" parameterType="_int">
+				SELECT
+			   BOARD_NO boardNo
+			 , CONSUMER_NO consumerNo
+			 , BOARD_TITLE title
+			 , BOARD_CONTENT content
+			 , WRITEN_DATE wirtenDate
 		  FROM
 		       FRUIT_BOARD
 		 WHERE
-		       BOARD_NO = ?
-	</entry>
-	
-	<entry key = "selectMyBoards">
-		SELECT
-	           BOARD_NO
-			 , BOARD_TITLE
-			 , CONSUMER_ID
+		       BOARD_NO = #{boardNo}
+		</select>
+
+		<select id="selectMyBoards" resultType="board" parameterType="_int">
+			SELECT
+	           BOARD_NO boardNo
+			 , CONSUMER_NO consumerNo
+			 , BOARD_TITLE title
+			 , BOARD_CONTENT content
+			 , WRITEN_DATE wirtenDate
 		  FROM
 		       FRUIT_BOARD F
 		     , CONSUMER C
 		 WHERE
-		       C.CONSUMER_NO = ?
+		       C.CONSUMER_NO = #{csmNo}
 		   AND
 		       C.CONSUMER_NO = F.CONSUMER_NO
-	</entry>
+		</select>
 	
-	<entry key="updateBoard">
-		UPDATE
+		<insert id="updateBoard" parameterType="board">
+			UPDATE
 		       FRUIT_BOARD
 		   SET 
-		       BOARD_TITLE = ?
-		     , BOARD_CONTENT = ?
+		       BOARD_TITLE = #{title}
+		     , BOARD_CONTENT = #{content}
 		 WHERE
-		       BOARD_NO = ?       
-	</entry>
+		       BOARD_NO = #{boardNo}
+		</insert>
 	
-	<entry key="deleteBoard">
-		DELETE
+		<delete id="deleteBoard" parameterType="_int">
+			DELETE
 		  FROM
 		       FRUIT_BOARD
 		 WHERE
-		       BOARD_NO = ?
-	</entry>
-	
-	
-	
-</properties>
+		       BOARD_NO = #{boardNo}
+		</delete>
+	       
+</mapper>
+

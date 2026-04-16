@@ -5,10 +5,13 @@ import com.kh.consumer.model.dto.ConsumerDto;
 import com.kh.exception.LengthOutOfBoundsIdException;
 import com.kh.exception.LengthOutOfBoundsPwException;
 import com.kh.template.JdbcTemplate;
+import com.kh.template.Template;
 
 import static com.kh.template.JdbcTemplate.*;
 
 import java.sql.Connection;
+
+import org.apache.ibatis.session.SqlSession;
 
 public class ConsumerService {
 	
@@ -17,41 +20,29 @@ public class ConsumerService {
 	public boolean isConsumerId(String id) {
 		// DB에서 아이디 있는지 확인
 		// 연결은 여기서 관리
-		Connection conn = JdbcTemplate.getConnection();
-		boolean result = cd.isConsumerId(conn, id);
-		commit(conn);
-		close(conn);
+		SqlSession session = Template.getSession(); 
+		boolean result = cd.isConsumerId(session, id);
+		session.close();
 		return result;
 		
 	}
 
 	public int createConsumer(ConsumerDto dto) {
 		//계정 생성
-		if(5>dto.getConsumerId().length() ||dto.getConsumerId().length()>20) {
-			throw new LengthOutOfBoundsIdException();
-		}
-		if(dto.getConsumerPw().length()>20) {
-			throw new LengthOutOfBoundsPwException();
-		}
-		
-		int result = 0;
-		Connection conn = getConnection();
-		result = cd.createConsumer(conn, dto);
+		SqlSession session = Template.getSession();
+		int result = cd.createConsumer(session, dto);
 		if(result > 0) {
-			commit(conn);
+			session.commit();
 		}
-		close(conn);
+		session.close();
 		return result; 
 		
 	}
 
 	public ConsumerDto login(ConsumerDto dto) {
-		Connection conn = getConnection();
-		ConsumerDto consumer = cd.login(conn, dto);
-		if(consumer!=null) {
-			commit(conn);
-		}
-		close(conn);
+		SqlSession session = Template.getSession();
+		ConsumerDto consumer = cd.login(session, dto);
+		session.close();
 		return consumer;
 	}
 

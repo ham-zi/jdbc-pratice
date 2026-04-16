@@ -45,6 +45,8 @@ public class ConsumerDto {
 	public void setHireDate(Date hireDate) {
 		this.hireDate = hireDate;
 	}
+	public ConsumerDto() {
+	}
 
 
 

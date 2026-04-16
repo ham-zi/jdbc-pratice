@@ -10,139 +10,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.kh.board.model.dto.BoardDto;
 import com.kh.board.model.dto.BoardTitleDto;
 import com.kh.template.JdbcTemplate;
 
 public class BoardDao {
 
-
-	{
-		JdbcTemplate.resisterDriver();
-	}
-
-	Properties prop = new Properties();
 	
-	public BoardDao() {
-		try {
-			prop.loadFromXML(new FileInputStream("resources/board-mapper.xml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public int createBoard(SqlSession session, BoardDto board) {
+		return session.insert("boardMapper.createBoard", board);
 	}
 	
-	public int createBoard(Connection conn, BoardDto board) {
-		int result = 0;
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("createBoard"))){
-			pstmt.setInt(1, board.getConsumerNo());
-			pstmt.setString(2, board.getTitle());
-			pstmt.setString(3, board.getContent());
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
+	public List<BoardTitleDto> selectBoards(SqlSession session){
+		return session.selectList("boardMapper.selectBoards");
 	}
 	
-	public List<BoardTitleDto> selectBoards(Connection conn){
-		List<BoardTitleDto>list = new ArrayList<>();
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("selectBoards"))){
-			
-			try(ResultSet rset = pstmt.executeQuery()){
-				while(rset.next()) {
-					BoardTitleDto board = new BoardTitleDto(rset.getInt("BOARD_NO")
-														   ,rset.getString("BOARD_TITLE")
-														   ,rset.getString("CONSUMER_ID"));
-					list.add(board);
-				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
+	public BoardDto selectBoard(SqlSession session, int boardNo) {
+		return session.selectOne("boardMapper.selectBoard", boardNo);
 	}
 	
-	public BoardDto selectBoard(Connection conn, int BoardNo) {
-		BoardDto board = null;
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("selectBoard"))){
-			pstmt.setInt(1, BoardNo);
-			try(ResultSet rset = pstmt.executeQuery()){
-				if(rset.next()) {
-					board = new BoardDto(BoardNo,0, rset.getString("BOARD_TITLE"),rset.getString("BOARD_CONTENT"),rset.getDate("WRITEN_DATE"));
-				}
-			} catch (SQLException e){
-				e.printStackTrace();
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return board;
+	public List<BoardTitleDto> selectMyBoards(SqlSession session, int csmNo) {
+		return session.selectList("boardMapper.selectMyBoards", csmNo);
 	}
 	
-	public List<BoardTitleDto> selectMyBoards(Connection conn, int csmNo) {
-		List<BoardTitleDto>list = new ArrayList<>();
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("selectMyBoards"))){
-			pstmt.setInt(1, csmNo);
-			try(ResultSet rset = pstmt.executeQuery()){
-				while(rset.next()) {
-					BoardTitleDto board = new BoardTitleDto(rset.getInt("BOARD_NO")
-							   ,rset.getString("BOARD_TITLE")
-							   ,rset.getString("CONSUMER_ID"));
-					list.add(board);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return list;
+	public int updateBoard(SqlSession session, BoardDto board) {
+		return session.update("boardMapper.updateBoard", board);
 	}
 	
-	public int updateBoard(Connection conn, BoardDto board) {
-		int result = 0;
-		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("updateBoard"))){
-			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, board.getContent());
-			pstmt.setInt(3, board.getBoardNo());
-			result = pstmt.executeUpdate();	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return result;
-	}
-	
-	public int deleteBoard(Connection conn, int boardNo) {
-		int result = 0;
-		try(PreparedStatement pstmt = conn.prepareStatement(prop.getProperty("deleteBoard"))){
-			pstmt.setInt(1, boardNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
+	public int deleteBoard(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteBoard", boardNo);
 	}
 	
 }

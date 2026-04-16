@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<comment> CONSUMER </comment>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<entry key="isConsumerId">
-		SELECT
-	 	       Consumer_NO
-		  FROM
-		       Consumer
-		 WHERE
-		       Consumer_ID = ?
-	</entry>
+
+	<mapper namespace="consumerMapper">
 	
-	<entry key="createConsumer">
-		INSERT
-		  INTO
-		       Consumer (Consumer_ID, Consumer_PW)
-		VALUES
-			   (
-			   ?
-			 , ? 
-			   )
-	</entry>
-	
-	<entry key="login">
-		SELECT
-			   Consumer_NO
-			 , Consumer_ID
-			 , Consumer_PW
-			 , HIREDATE
+		<select id="isConsumerId" resultType="consumer" parameterType="string">
+			SELECT
+	 	       	   Consumer_NO consumerNo
+	 	       	 , Consumer_ID consumerId
+	 	       	 , Consumer_PW consumerPw
+		  	  FROM
+		           Consumer
+		 	 WHERE
+		           Consumer_ID = #{id}
+		</select>
+		
+		
+		<insert id="createConsumer" parameterType="consumer">
+			 INSERT
+		 	   INTO
+		      	    Consumer 
+		      	    (
+					Consumer_ID
+		      	  , Consumer_PW
+		      	    )
+		     VALUES
+				    (
+				    #{consumerId}
+				  , #{consumerPw} 
+				    )
+		</insert>
+
+		<select id="login" resultType="consumer" parameterType="consumer">
+				SELECT
+			   Consumer_NO consumerNo
+			 , Consumer_ID consumerId
+			 , Consumer_PW consumerPw
 		  FROM
 		       Consumer
 		 WHERE 
-		       Consumer_ID = ?
+		       Consumer_ID = #{consumerId}
 		   AND
-		       Consumer_PW = ?
-	</entry>
+		       Consumer_PW = #{consumerPw}
+		</select>
 
 
-
-</properties>
+	</mapper>

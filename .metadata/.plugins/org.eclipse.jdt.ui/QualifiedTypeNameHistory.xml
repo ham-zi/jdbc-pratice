@@ -9,4 +9,5 @@
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="com.kh.template.JdbcTemplate"/>
     <fullyQualifiedTypeName name="javax.sql.rowset.serial.SQLOutputImpl"/>
+    <fullyQualifiedTypeName name="com.kh.template.Template"/>
 </qualifiedTypeNameHistroy>

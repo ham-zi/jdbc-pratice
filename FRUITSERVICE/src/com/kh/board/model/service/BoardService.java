@@ -3,67 +3,70 @@ package com.kh.board.model.service;
 import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.dto.BoardDto;
 import com.kh.board.model.dto.BoardTitleDto;
+import com.kh.template.Template;
 
 import static com.kh.template.JdbcTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 public class BoardService {
 
 	BoardDao bd = new BoardDao();
 	
 	public int createBoard(BoardDto board) {
-		Connection conn = getConnection();
-		int result = bd.createBoard(conn, board);
+		SqlSession session = Template.getSession();
+		int result = bd.createBoard(session, board);
 		if(result > 0) {
-			commit(conn);
+			session.commit();
 		}
-		close(conn);
+		session.close();
 		return result;
 	}
 	
 	public List<BoardTitleDto> selectBoards() {
-		Connection conn = getConnection();
+		SqlSession session = Template.getSession();
 		List<BoardTitleDto>list = null;
-		list = bd.selectBoards(conn);
-		close(conn);
+		list = bd.selectBoards(session);
+		session.close();
 		return list;
 	}
 	
 	public BoardDto selectBoard(int boardNo) {
-		Connection conn = getConnection();
+		SqlSession session = Template.getSession();
 		BoardDto board = null;
-		board = bd.selectBoard(conn, boardNo);
-		close(conn);
+		board = bd.selectBoard(session, boardNo);
+		session.close();
 		return board;
 	}
 	
 	public List<BoardTitleDto> selectMyBoards(int csmNo) {
-		Connection conn = getConnection();
+		SqlSession session = Template.getSession();
 		List<BoardTitleDto>list = null;
-		list = bd.selectMyBoards(conn, csmNo);
-		close(conn);
+		list = bd.selectMyBoards(session, csmNo);
+		session.close();
 		return list;
 	}
 	
 	public int updateBoard(BoardDto board) {
-		Connection conn = getConnection();
-		int result = bd.updateBoard(conn,board);
+		SqlSession session = Template.getSession();
+		int result = bd.updateBoard(session,board);
 		if(result > 0) {
-			commit(conn);
+			session.commit();
 		}
-		close(conn);
+		session.close();
 		return result;
 	}
 	
 	public int deleteBoard(int boardNo) {
-		Connection conn = getConnection();
-		int result = bd.deleteBoard(conn, boardNo);
+		SqlSession session = Template.getSession();
+		int result = bd.deleteBoard(session, boardNo);
 		if(result>0) {
-			commit(conn);
+			session.commit();
 		}
-		close(conn);
+		session.close();
 		return result;
 	}
 	

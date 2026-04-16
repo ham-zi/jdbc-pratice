@@ -34,6 +34,9 @@ public class BoardDto {
 		this.content = content;
 	}
 
+	public BoardDto() {
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
