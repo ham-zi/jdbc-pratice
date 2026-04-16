@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace= "animalMapper">
+   
+  <!-- namespace : 각 mapper의 고유한 별칭! 다른 매퍼랑 중복되면 XXX -->
+  <!-- 파라미터타입에 풀클래스네임을 적는다.
+       -> mybatis-configuration에서 <typeAliases> 별칭등록한다면 "별칭"으로 사용이 가능하다
+   -->
+  <insert id="save"
+  		  parameterType="animal">
+  	  INSERT
+  	    INTO
+  	         ANIMAL
+  	  VALUES
+  	         (
+  	         'A' || SEQ_ANIMAL_ID.NEXTVAL
+  	       ,  #{animalName}
+  	       ,  #{speciesId}
+  	       ,  #{zoneId}
+  	       ,  #{keeperId}
+  	       ,  #{gender}
+  	       ,  #{weightKg}
+  	       ,  SYSDATE
+  	       ,  SYSDATE
+  	         )
+  </insert>
+  
+  
+  <!-- 
+  		resultMap : 이 엘리먼트는 가장중요하고 강력한 엘리먼트이다. MyBatis의 꽃
+  		            ResultSet으로부터 조회한 컬럼의 값을 하나씩 추출해서
+  		            우리가 만든 VO/DTO객체의 필드에 담는 코드를 대신해주는 역할
+  		           
+  		           while(rset.next()) {
+  		           new Animal( rset.get~~~ , ~~~ ,~~ ,~~~ )
+  		           }
+  		           animal.add(animal)
+  		           -> 이 코드를 대체함
+  		           <resultMap id="식별값" type="매핑하고자하는 자바 객체 타입(풀클래스명)">
+  		                id가 pK컬럼 일 시
+  		           		<id column="조회ㅗ딘 결과를 뽑고자하는 컬럼명" property ="해당값을 매핑할 필드명"/>
+  		                나머지 컬럼
+  		                <result column="조회된 결과를 뽑고자하는 컬럼명" property ="해당 값을 매핑할 필드명"/> 
+  		                 
+  		                 
+  		           </resultMap>
+  		           
+   -->
+   
+   
+   <sql id="selectAnimalColumn">
+     	SELECT
+  	         ANIMAL_ID animalNo
+  	       , ANIMAL_NAME animalName
+  	       , SPECIES_NAME speciesId
+  	       , NVL(KEEPER_NAME, '없음') keeperId
+  	       , ZONE_NAME zoneId
+  	       , GENDER
+  	       , WEIGHT_KG weightKg
+  	    FROM
+  	         ANIMAL
+  	    JOIN
+  	         SPECIES USING(SPECIES_ID)
+  	    JOIN
+  	         ZONE USING(ZONE_ID)
+  	    LEFT
+  	    JOIN
+  	         KEEPER USING(KEEPER_ID)
+   </sql>
+   
+   
+  <resultMap id="animalResultSet" type="animal">
+  	<id column="ANIMAL_ID" property="animalNo"/>
+  	<result column="ANIMAL_NAME" property="animalName"/>
+  	<result column="SPECIES_NAME" property="speciesId"/>
+  	<result column="ZONE_NAME" property="zoneId"/>
+  	<result column="KEEPER_NAME" property="keeperId"/>
+  	<result column="GENDER" property="gender"/>
+  	<result column="WEIGHT_KG" property="weightKg"/>
+  
+  </resultMap>
+
+  <select id="findAll"  resultType="animal">
+  		<!--    resultMap="animalResultSet">-->
+  		<!-- 오토 매핑 -->
+  	   <include refid="selectAnimalColumn"/>
+  	   ORDER
+  	      BY
+  	         ANIMAL_ID DESC       
+  </select>
+  
+  
+  <select id="findById" resultType="animal" parameterType="string">
+  	   <include refid="selectAnimalColumn"/>
+  	   WHERE
+  	         ANIMAL_ID = #{id}
+  </select>
+  
+  <select id="findByKeyword" resultType="animal" parameterType="string">
+      SELECT
+             ANIMAL_ID animalNo
+           , ANIMAL_NAME animalName
+           , SPECIES_ID speciesId
+           , ZONE_ID zoneId
+           , KEEPER_ID keeperId
+        FROM
+             ANIMAL
+       WHERE
+             ANIMAL_NAME LIKE '%'||#{name}||'%'
+  </select> 
+  
+  <!-- 
+  		*DML문 =>
+  		<insert id="각 SQL문의 식별자">
+  			쿼리문
+  		</insert>
+  
+  		<update></update>
+  		
+  		<delete></delete>
+  		
+  		=> pstmt객체를 쓸 때 앞에선 ?를 이용했지만
+  		MyBatis를 사용할 때는 위치홀더 대신 해당 SQL문에 전달된 객체로 부터 값을 꺼내서 사용한다.
+  		#{ 필드명 } => 내부적으로 getter()를 호출해서 값을 넣어줌
+  		#{ 필드명, 변수명, 또는 map의 키값} ||  옛날 ${ }(Statement 사용시 ==> 쓰지마세용 ) 
+   -->
+  <!-- 
+  
+  	Select일 경우
+  	<select id="각 SQL문의 식별값">
+  	      select문
+  	  
+  	</select>  
+  
+   => 셀렉문 특징
+   1. count(*) -> 정수
+   2. 아이디체크 -> 문자열반환
+   3. animal -> animalDto
+   => resultType="반환하고자하는 자바타입"
+   => resultMap="반환하고자하는 resultMap id값"
+   => 둘 중 하나를 꼭 써줘야 한다.
+   ****resultMap은 복잡한 구문에서 관계를 서술하기 위해 필요하다****
+   
+   
+   중복되는 영역을 VIEW로 만들어낸다
+   
+   
+   
+   파라미터타입
+   빼먹었는데 잘된다
+   
+   #{변수명}에서 변수명을 잘못썼는데 잘된다
+   
+   응??? 뭐지???
+   
+   해보고 책을보는게 체득이 빠르다
+   
+   
+   
+   
+   
+   -->
+  
+  </mapper>
