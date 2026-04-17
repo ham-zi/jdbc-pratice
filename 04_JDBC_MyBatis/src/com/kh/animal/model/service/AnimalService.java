@@ -59,5 +59,25 @@ public class AnimalService {
 		
 	}
 	
+	public int updateAnimal(AnimalDto animal) {
+		SqlSession session = Template.getSqlSession();
+		int result = new AnimalDao().updateAnimal(session, animal);
+		if(result > 0) {
+			session.commit();
+		}
+		session.close();
+		return result;
+	}
+	
+	public int deleteAnimal(String animalNo) {
+		SqlSession session = Template.getSqlSession();
+		int result = new AnimalDao().deleteAnimal(session, animalNo);
+		if(result > 0) {
+			session.commit();
+		}
+		session.close();
+		return result;
+	}
+	
 
 }

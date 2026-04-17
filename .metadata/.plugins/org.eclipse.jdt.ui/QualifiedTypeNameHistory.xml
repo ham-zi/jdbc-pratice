@@ -10,4 +10,9 @@
     <fullyQualifiedTypeName name="com.kh.template.JdbcTemplate"/>
     <fullyQualifiedTypeName name="javax.sql.rowset.serial.SQLOutputImpl"/>
     <fullyQualifiedTypeName name="com.kh.template.Template"/>
+    <fullyQualifiedTypeName name="com.kh.animal.common.Template"/>
+    <fullyQualifiedTypeName name="com.kh.animal.controller.KeeperController"/>
+    <fullyQualifiedTypeName name="java.lang.StringIndexOutOfBoundsException"/>
+    <fullyQualifiedTypeName name="org.apache.ibatis.io.Resources"/>
+    <fullyQualifiedTypeName name="miniproject_country.com.kh.common.Template"/>
 </qualifiedTypeNameHistroy>

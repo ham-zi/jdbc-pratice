@@ -157,11 +157,28 @@
    응??? 뭐지???
    
    해보고 책을보는게 체득이 빠르다
-   
-   
-   
-   
+    
    
    -->
+  
+  
+  <update id='updateAnimal'>
+  	UPDATE
+  	       ANIMAL
+  	   SET
+  	       ZONE_ID = #{zoneId}
+  	     , KEEPERID = #{keeperId}
+  	     , WEIGHT_KG = #{weightKg}
+  	 WHERE
+  	       ANIMAL_ID = #{animalNo}
+  </update>
+  
+  <delete id="deleteAnimal">
+  	DELETE
+  	  FROM
+  	       ANIMAL
+  	 WHERE
+  	       ANIMAL_ID = #{animalNo}
+  </delete>
   
   </mapper>

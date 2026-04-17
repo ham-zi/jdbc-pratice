@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+  
+		<settings>
+		    <setting name="mapUnderscoreToCamelCase" value="true"/>
+		</settings>
+  	
+  	<typeAliases>
+  		<typeAlias type="com.kh.province.model.dto.ProvinceDto" alias="province"/>
+  		<typeAlias type="com.kh.city.model.dto.CityDto" alias="city"/>
+  	</typeAliases>
+  	
+  	<environments default="deploy">
+  		<environment id="deploy">
+  			<transactionManager type="JDBC"/>
+  			<dataSource type="POOLED">
+  				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+  				<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+  				<property name="username" value="C##DS"/>
+  				<property name="password" value="DS"/>
+  			</dataSource>
+  		</environment>
+  	</environments>
+  
+  <mappers>
+  	<mapper resource="province-mapper.xml"/>
+  	<mapper resource="city-mapper.xml"/>
+  </mappers>
+  
+  </configuration>
