@@ -6,8 +6,8 @@ public class CityDto {
 	private String cityName;
 	private String localProduct;
 	private String hotPlace;
-	private long cityPopulation;
-	private long cityArea;
+	private Long cityPopulation;
+	private Long cityArea;
 	private int provinceNo;
 	
 	public CityDto() {
@@ -15,8 +15,8 @@ public class CityDto {
 	}
 	
 	
-	public CityDto(int cityNo, String cityName, String localProduct, String hotPlace, long cityPopulation,
-			long cityArea, int provinceNo) {
+	public CityDto(int cityNo, String cityName, String localProduct, String hotPlace, Long cityPopulation,
+			Long cityArea, int provinceNo) {
 		super();
 		this.cityNo = cityNo;
 		this.cityName = cityName;
@@ -29,7 +29,7 @@ public class CityDto {
 	
 	
 	
-	public CityDto(String cityName, String localProduct, String hotPlace, long cityPopulation, long cityArea,
+	public CityDto(String cityName, String localProduct, String hotPlace, Long cityPopulation, Long cityArea,
 			int provinceNo) {
 		super();
 		this.cityName = cityName;
@@ -65,16 +65,16 @@ public class CityDto {
 	public void setHotPlace(String hotPlace) {
 		this.hotPlace = hotPlace;
 	}
-	public long getCityPopulation() {
+	public Long getCityPopulation() {
 		return cityPopulation;
 	}
-	public void setCityPopulation(long cityPopulation) {
+	public void setCityPopulation(Long cityPopulation) {
 		this.cityPopulation = cityPopulation;
 	}
-	public long getCityArea() {
+	public Long getCityArea() {
 		return cityArea;
 	}
-	public void setCityArea(long cityArea) {
+	public void setCityArea(Long cityArea) {
 		this.cityArea = cityArea;
 	}
 	public int getProvinceNo() {
