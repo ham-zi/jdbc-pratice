@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="memberMapper">
+  
+  	<select id="selectMemberById" resultType="deliMember">
+  		SELECT
+  		       MEMBER_NO
+  		     , MEMBER_ID
+  		     , MEMBER_PW
+  		     , MEMBER_NAME
+  		     , ADDRESS
+  		     , ENROLL_DATE
+  		  FROM
+  		       DELI_MEMBER
+  		 WHERE
+  		       MEMBER_ID = #{memberId}
+  	</select>
+  	
+  	<select id="loginMember" resultType="deliMember">
+  		SELECT
+  		       MEMBER_NO
+  		     , MEMBER_ID
+  		     , MEMBER_NAME
+  		     , ADDRESS
+  		     , ENROLL_DATE
+  		  FROM
+  		       DELI_MEMBER
+  		 WHERE
+  		       MEMBER_ID = #{memberId}
+  		   AND
+  		       MEMBER_PW = #{memberPw}	
+  	</select>
+  
+  	<insert id="insertMember">
+  		INSERT
+  		  INTO
+  		       DELI_MEMBER
+  		       (
+  		       MEMBER_NO
+  		     , MEMBER_ID
+  		     , MEMBER_PW
+  		     , MEMBER_NAME
+  		     , ADDRESS
+  		       )
+  		VALUES 
+  		       (
+  		       SEQ_MEMBER_NO.NEXTVAL
+  		     , #{memberId}
+  		     , #{memberPw}
+  		     , #{memberName}
+  		     , #{address}
+  		       )
+  	</insert>
+  	
+  	<insert parameterType="review" id="insertReview">
+  		INSERT
+  		  INTO
+  		       REVIEW
+  		       (
+  		       REVIEW_NO
+  		     , ORDER_NO
+  		     , MEMBER_NO
+  		     , REVIEW_STAR
+  		       )
+  		VALUES
+  		       (
+  		       SEQ_REVIEW_NO.NEXTVAL
+  		     , #{orderNo}  
+  		     , #{memberNo}
+  		     , #{reviewStar} 
+  		       )
+  	</insert>
+  
+  </mapper>

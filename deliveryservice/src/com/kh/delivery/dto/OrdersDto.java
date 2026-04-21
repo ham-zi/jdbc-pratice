@@ -1,0 +1,136 @@
+package com.kh.delivery.dto;
+
+import java.sql.Date;
+
+public class OrdersDto {
+
+	private int orderNo;
+	private int memberNo;
+	private int menuNo;
+	private int quantity;
+	private Date orderDate;
+	private String status;
+	
+	private String memberName;
+	private String restName;
+	private String menuName;
+	private int price;
+	
+	public OrdersDto() {
+		super();
+	}
+	
+
+
+	@Override
+	public String toString() {
+		return "OrdersDto [orderNo=" + orderNo + ", memberNo=" + memberNo + ", menuNo=" + menuNo + ", quantity="
+				+ quantity + ", orderDate=" + orderDate + ", status=" + status + ", memberName=" + memberName
+				+ ", restName=" + restName + ", menuName=" + menuName + ", price=" + price + "]";
+	}
+
+
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
+
+	public String getRestName() {
+		return restName;
+	}
+
+
+
+	public void setRestName(String restName) {
+		this.restName = restName;
+	}
+
+
+
+	public String getMenuName() {
+		return menuName;
+	}
+
+
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
+
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+
+	public OrdersDto(int memberNo, int menuNo, int quantity) {
+		super();
+		this.memberNo = memberNo;
+		this.menuNo = menuNo;
+		this.quantity = quantity;
+	}
+	public OrdersDto(int orderNo, int memberNo, int menuNo, int quantity, Date orderDate, String status) {
+		super();
+		this.orderNo = orderNo;
+		this.memberNo = memberNo;
+		this.menuNo = menuNo;
+		this.quantity = quantity;
+		this.orderDate = orderDate;
+		this.status = status;
+	}
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public int getMenuNo() {
+		return menuNo;
+	}
+	public void setMenuNo(int menuNo) {
+		this.menuNo = menuNo;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
+	
+}

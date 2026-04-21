@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace = "ordersMapper">
+  
+  
+	  <resultMap type="orders" id="orderResultMap">
+	     <id     property="orderNo"    column="ORDER_NO"/>
+	    <result property="memberNo"   column="MEMBER_NO"/>
+	    <result property="menuNo"     column="MENU_NO"/>
+	    <result property="quantity"   column="QUANTITY"/>
+	    <result property="orderDate"  column="ORDER_DATE"/>
+	    <result property="status"     column="STATUS"/>
+	    
+	    <result property="memberName" column="MEMBER_NAME"/>
+	    <result property="restName"   column="REST_NAME"/>
+	    <result property="menuName"   column="MENU_NAME"/>
+	    <result property="price"      column="PRICE"/>
+	  </resultMap>
+	  
+	  
+	  
+	  <select id="selectMyOrders" resultMap="orderResultMap">
+	  	SELECT
+	  		   ORDER_NO
+	  	     , REST_NAME
+	  	     , MENU_NAME
+	  	     , QUANTITY
+	  	     , STATUS
+	  	  FROM
+	  	       ORDERS
+	  	  JOIN
+	  	       DELI_MEMBER USING(MEMBER_NO)
+	  	  JOIN
+	  	       MENU USING(MENU_NO)
+	  	  JOIN
+	  	       RESTAURANT USING(REST_NO)
+	  	 WHERE
+	  	       MEMBER_NO = #{memberNo}
+	  
+	  </select>
+	  
+	  <insert id="insertOrder">
+	  	INSERT
+	  	  INTO
+	  	       ORDERS
+	  	       (
+	  	       ORDER_NO
+	  	     , MEMBER_NO
+	  	     , MENU_NO
+	  	     , QUANTITY
+	  	       )
+	  	VALUES
+	  	       (
+	  	       SEQ_ORDER_NO.NEXTVAL
+	  	     , #{memberNo}
+	  	     , #{menuNo}
+	  	     , #{quantity}
+	  	       )
+	  </insert>
+	  
+	  
+	  <select id="availableMenu" resultType="menu">
+	  	SELECT
+	  	       SOLD_OUT
+	  	  FROM
+	  	       MENU
+	  	 WHERE
+	  	       MENU_NO = #{menuNo}
+	  </select>
+	  
+	  <delete id="deleteOrder">
+	  	DELETE
+	  	  FROM
+	  	       ORDERS
+	  	 WHERE
+	  	       ORDER_NO = #{orderNo}
+	  </delete>
+	  
+	  <select id="availableDeleteOrder" resultType="orders">
+	  	SELECT
+	  	       STATUS
+	  	  FROM
+	  	       ORDERS
+	  	 WHERE
+	  	       ORDER_NO = #{orderNo}
+	  </select>
+	  
+  
+  </mapper>
