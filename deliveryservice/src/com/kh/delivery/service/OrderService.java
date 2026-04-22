@@ -8,6 +8,7 @@ import com.kh.delivery.common.Template;
 import com.kh.delivery.dao.OrderDao;
 import com.kh.delivery.dto.MenuDto;
 import com.kh.delivery.dto.OrdersDto;
+import com.kh.delivery.exception.NotExistMenuException;
 import com.kh.delivery.exception.SoldOutException;
 
 public class OrderService {
@@ -37,7 +38,11 @@ public class OrderService {
 	private boolean availableMenu(int menuNo) {
 		SqlSession session = Template.getSqlSession();
 		MenuDto menu = od.availableMenu(session, menuNo);
-		if(menu.getSoldOut().equals("N")) {
+		if(menu == null) {
+			session.close();
+			throw new NotExistMenuException();
+		}
+		if(menu.getSoldOut().equals("Y")) {
 			session.close();
 			throw new SoldOutException();
 		} else {

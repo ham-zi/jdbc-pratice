@@ -1,5 +1,6 @@
 package com.kh.delivery.service;
 
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.delivery.common.Template;
@@ -53,6 +54,7 @@ public class MemberService {
 		session.close();
 		return result;
 	}
+	
 	
 	
 }

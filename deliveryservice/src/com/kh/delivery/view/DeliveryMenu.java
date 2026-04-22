@@ -8,9 +8,12 @@ import com.kh.delivery.controller.MemberController;
 import com.kh.delivery.controller.OrderController;
 import com.kh.delivery.controller.RestaurantController;
 import com.kh.delivery.dto.DeliMemberDto;
+import com.kh.delivery.dto.MenuDto;
 import com.kh.delivery.dto.OrdersDto;
+import com.kh.delivery.dto.RestaurantDto;
 import com.kh.delivery.dto.ReviewDto;
 import com.kh.delivery.exception.ExistIdException;
+import com.kh.delivery.exception.NotExistMenuException;
 import com.kh.delivery.exception.SoldOutException;
 
 public class DeliveryMenu {
@@ -26,8 +29,8 @@ public class DeliveryMenu {
 			System.out.println("=====================");
 			System.out.println("KH배달프로그램입니다.");
 			System.out.println("1. 전체 가게 목록");
-			System.out.println("2. 가게 상세(메뉴보기)");
-			System.out.println("3. 카테고리별 검색");
+			System.out.println("2. 카테고리별 검색");
+			System.out.println("3. 가게상세(메뉴보기)");
 			if(loginMember != null) {
 				System.out.println("4. 주문하기"); //
 				System.out.println("5. 주문 취소");//
@@ -48,8 +51,12 @@ public class DeliveryMenu {
 				case "1" : 
 					selectRestaurants();
 					break;
-				case "2" : break;
-				case "3" : break;
+				case "2" : 
+					selectByCategory();
+					break;
+				case "3" : 
+					selectRestaurant();
+					break;
 				case "4" : 
 					insertOrder();
 					break;
@@ -78,8 +85,12 @@ public class DeliveryMenu {
 				case "1" : 
 					selectRestaurants();
 					break;
-				case "2" : break;
-				case "3" : break;
+				case "2" : 
+					selectByCategory();
+					break;
+				case "3" : 
+					selectRestaurant();
+					break;
 				case "4" : 
 					login();
 					break;
@@ -99,9 +110,65 @@ public class DeliveryMenu {
 	
 	// 가게
 	private void selectRestaurants() {
-		rc.selectRestaurants();
+		System.out.println("=========식당목록=========");
+		List<RestaurantDto>list = rc.selectRestaurants();
+		list.stream()
+			.map(r-> "[ 식당번호:" + r.getRestNo()
+					+", 식당이름:" + r.getRestName()
+					+", 카테고리:"+r.getCategory()
+					+", 최소주문:"+r.getMinPrice()
+					+", 배달팁:"+r.getDeliveryFee()
+					+", 식당평점:"+r.getAvgStar()+"]")
+			.forEach(System.out::println);
+		
 	}
 	
+	// 가게 상세 조회
+	private void selectRestaurant() {
+		int restNo=0;
+		selectRestaurants();
+		System.out.print("메뉴를 상세보기하실 식당번호를 입력>");
+		try {
+			restNo = sc.nextInt();
+			sc.nextLine();
+		} catch(InputMismatchException e) {
+			System.out.println("숫자를 입력해주세요.");
+		}
+		List<MenuDto>menus = rc.selectRestaurant(restNo);
+		if(menus.isEmpty()) {
+			System.out.println("존재하는 메뉴가 없습니다.");
+		}
+		menus.stream()
+			 .map(m -> "[메뉴번호:"+m.getMenuNo()
+			         +", 메뉴이름:"+m.getMenuName()
+			         +", 메뉴가격:"+m.getPrice()
+			         +", 품절여부:"+m.getSoldOut()
+			         +"]")
+			 .forEach(System.out::println);
+	}
+	
+	//카테고리별조회
+	private void selectByCategory() {
+		System.out.println("카테고리 조회 서비스입니다.");
+		System.out.print("한식,중식,일식,양식,분식,치킨,피자 중에서 입력하세요 >");
+		String category = sc.nextLine();
+		if(!(category.equals("한식") || category.equals("중식") || category.equals("일식") || category.equals("양식") ||
+				category.equals("분식") || category.equals("치킨") || category.equals("피자"))) {
+			category = null;
+		} 
+		List<RestaurantDto> rests = rc.selectByCategory(category);
+		if(rests.isEmpty()) {
+			System.out.println("존재하는 가게가 없습니다.");
+		}
+		rests.stream()
+		.map(r-> "[ 식당번호:" + r.getRestNo()
+				+", 식당이름:" + r.getRestName()
+				+", 카테고리:"+r.getCategory()
+				+", 최소주문:"+r.getMinPrice()
+				+", 배달팁:"+r.getDeliveryFee()
+				+", 식당평점:"+r.getAvgStar()+"]")
+		.forEach(System.out::println);
+	}
 	
 	
 	// 회원
@@ -212,6 +279,9 @@ public class DeliveryMenu {
 			return;
 		} catch(SoldOutException e) {
 			System.out.println("품절 상품입니다.");
+			return;
+		} catch(NotExistMenuException e) {
+			System.out.println("없는 메뉴입니다.");
 			return;
 		}
 		if(result > 0) {
