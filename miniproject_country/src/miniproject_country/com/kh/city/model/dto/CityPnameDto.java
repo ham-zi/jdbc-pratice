@@ -1,6 +1,6 @@
 package miniproject_country.com.kh.city.model.dto;
 
-public class CityDto {
+public class CityPnameDto {
 	
 	private int cityNo;
 	private String cityName;
@@ -8,15 +8,9 @@ public class CityDto {
 	private String hotPlace;
 	private Long cityPopulation;
 	private Long cityArea;
-	private int provinceNo;
-	
-	public CityDto() {
-		super();
-	}
-	
-	
-	public CityDto(int cityNo, String cityName, String localProduct, String hotPlace, Long cityPopulation,
-			Long cityArea, int provinceNo) {
+	private String provinceName;
+	public CityPnameDto(int cityNo, String cityName, String localProduct, String hotPlace, Long cityPopulation,
+			Long cityArea, String provinceName) {
 		super();
 		this.cityNo = cityNo;
 		this.cityName = cityName;
@@ -24,23 +18,11 @@ public class CityDto {
 		this.hotPlace = hotPlace;
 		this.cityPopulation = cityPopulation;
 		this.cityArea = cityArea;
-		this.provinceNo = provinceNo;
+		this.provinceName = provinceName;
 	}
-	
-	
-	
-	public CityDto(String cityName, String localProduct, String hotPlace, Long cityPopulation, Long cityArea,
-			int provinceNo) {
+	public CityPnameDto() {
 		super();
-		this.cityName = cityName;
-		this.localProduct = localProduct;
-		this.hotPlace = hotPlace;
-		this.cityPopulation = cityPopulation;
-		this.cityArea = cityArea;
-		this.provinceNo = provinceNo;
 	}
-
-
 	public int getCityNo() {
 		return cityNo;
 	}
@@ -77,19 +59,11 @@ public class CityDto {
 	public void setCityArea(Long cityArea) {
 		this.cityArea = cityArea;
 	}
-	public int getProvinceNo() {
-		return provinceNo;
+	public String getProvinceName() {
+		return provinceName;
 	}
-	public void setProvinceNo(int provinceNo) {
-		this.provinceNo = provinceNo;
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
 	}
-	@Override
-	public String toString() {
-		return "CityDto [cityNo=" + cityNo + ", cityName=" + cityName + ", localProduct=" + localProduct + ", hotPlace="
-				+ hotPlace + ", cityPopulation=" + cityPopulation + ", cityArea=" + cityArea + ", provinceNo="
-				+ provinceNo + "]";
-	}
-	
-	
 
 }

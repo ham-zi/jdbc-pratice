@@ -15,11 +15,13 @@ public class Template {
 		
 		try {
 			InputStream stream = Resources.getResourceAsStream(resource);
-			session = new SqlSessionFactoryBuilder().build(stream).openSession();			
+			session = new SqlSessionFactoryBuilder().build(stream).openSession();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return session;
 		
 	}

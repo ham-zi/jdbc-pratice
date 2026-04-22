@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.kh.delivery.controller.MemberController;
 import com.kh.delivery.controller.OrderController;
+import com.kh.delivery.controller.RestaurantController;
 import com.kh.delivery.dto.DeliMemberDto;
 import com.kh.delivery.dto.OrdersDto;
 import com.kh.delivery.dto.ReviewDto;
@@ -17,6 +18,7 @@ public class DeliveryMenu {
 	Scanner sc = new Scanner(System.in);
 	MemberController mc = new MemberController();
 	OrderController oc = new OrderController();
+	RestaurantController rc = new RestaurantController();
 	DeliMemberDto loginMember = null;
 	
 	public void mainMenu() {
@@ -28,9 +30,9 @@ public class DeliveryMenu {
 			System.out.println("3. 카테고리별 검색");
 			if(loginMember != null) {
 				System.out.println("4. 주문하기"); //
-				System.out.println("5. 주문 취소");
+				System.out.println("5. 주문 취소");//
 				System.out.println("6. 내 주문내역");//
-				System.out.println("7. 별점주기");
+				System.out.println("7. 별점주기"); //
 				System.out.println("8. 로그아웃"); //
 			} else {
 				System.out.println("4. 로그인"); //
@@ -43,7 +45,9 @@ public class DeliveryMenu {
 			
 			if(loginMember != null) {
 				switch(menuNo) {
-				case "1" : break;
+				case "1" : 
+					selectRestaurants();
+					break;
 				case "2" : break;
 				case "3" : break;
 				case "4" : 
@@ -71,7 +75,9 @@ public class DeliveryMenu {
 			}
 			if(loginMember == null) {
 				switch(menuNo) {
-				case "1" : break;
+				case "1" : 
+					selectRestaurants();
+					break;
 				case "2" : break;
 				case "3" : break;
 				case "4" : 
@@ -90,6 +96,14 @@ public class DeliveryMenu {
 		}
 			
 	}
+	
+	// 가게
+	private void selectRestaurants() {
+		rc.selectRestaurants();
+	}
+	
+	
+	
 	// 회원
 	private void login() {
 		System.out.println("KH로그인 서비스입니다.");
@@ -141,6 +155,7 @@ public class DeliveryMenu {
 	private void insertReview() {
 		int orderNo = 0;
 		int reviewStar = 0;
+		OrdersDto rest =null;
 		selectMyOrders();
 		System.out.println("별점주기 시스템");
 		try {
@@ -149,10 +164,11 @@ public class DeliveryMenu {
 			System.out.print("별점: 1 ~ 5 입력 >");
 			reviewStar = sc.nextInt();
 			sc.nextLine();
+			rest = oc.selectRestNoByOrder(orderNo);
 		} catch (InputMismatchException e) {
 			System.out.println("숫자를 입력하세요.");
 		}
-		int result = mc.insertReview(new ReviewDto(orderNo,loginMember.getMemberNo(),reviewStar));
+		int result = mc.insertReview(new ReviewDto(rest.getRestNo(),loginMember.getMemberNo(),reviewStar));
 		if(result > 0) {
 			System.out.println("리뷰 작성 완료");
 		} else {

@@ -13,7 +13,7 @@
 	    <result property="quantity"   column="QUANTITY"/>
 	    <result property="orderDate"  column="ORDER_DATE"/>
 	    <result property="status"     column="STATUS"/>
-	    
+	    <result property="restNo"     column="REST_NO"/>
 	    <result property="memberName" column="MEMBER_NAME"/>
 	    <result property="restName"   column="REST_NAME"/>
 	    <result property="menuName"   column="MENU_NAME"/>
@@ -84,6 +84,19 @@
 	  	       STATUS
 	  	  FROM
 	  	       ORDERS
+	  	 WHERE
+	  	       ORDER_NO = #{orderNo}
+	  </select>
+	  
+	  <select id="selectRestNoByOrder" resultType="orders">
+	  	SELECT
+	  	       REST_NO
+	  	  FROM
+	  	       ORDERS
+	  	  JOIN
+	  	       MENU USING(MENU_NO)
+	  	  JOIN
+	  	       RESTAURANT USING(REST_NO)
 	  	 WHERE
 	  	       ORDER_NO = #{orderNo}
 	  </select>

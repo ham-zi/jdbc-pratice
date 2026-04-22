@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ReviewDto {
 
 	private int reviewNo;
-	private int orderNo;
+	private int restNo;
 	private int memberNo;
 	private int reviewStar;
 	
@@ -15,19 +15,19 @@ public class ReviewDto {
 	}
 
 
-	public ReviewDto(int orderNo, int memberNo, int reviewStar) {
+	public ReviewDto(int restNo, int memberNo, int reviewStar) {
 		super();
-		this.orderNo = orderNo;
+		this.restNo = restNo;
 		this.memberNo = memberNo;
 		this.reviewStar = reviewStar;
 	}
 	
 
 
-	public ReviewDto(int reviewNo, int orderNo, int memberNo, int reviewStar, Date reviewDate) {
+	public ReviewDto(int reviewNo, int restNo, int memberNo, int reviewStar, Date reviewDate) {
 		super();
 		this.reviewNo = reviewNo;
-		this.orderNo = orderNo;
+		this.restNo = restNo;
 		this.memberNo = memberNo;
 		this.reviewStar = reviewStar;
 	}
@@ -43,13 +43,13 @@ public class ReviewDto {
 	}
 
 
-	public int getOrderNo() {
-		return orderNo;
+	public int getRestNo() {
+		return restNo;
 	}
 
 
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setRestNo(int restNo) {
+		this.restNo = restNo;
 	}
 
 
@@ -76,7 +76,7 @@ public class ReviewDto {
 
 	@Override
 	public String toString() {
-		return "ReviewDto [reviewNo=" + reviewNo + ", orderNo=" + orderNo + ", memberNo=" + memberNo + ", reviewStar="
+		return "ReviewDto [reviewNo=" + reviewNo + ", restNo=" + restNo + ", memberNo=" + memberNo + ", reviewStar="
 				+ reviewStar + ", reviewDate=" +  "]";
 	}
 

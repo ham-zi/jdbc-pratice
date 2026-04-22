@@ -17,8 +17,12 @@ public class OrderController {
 		return os.insertOrder(order);
 	}
 	
-	public int deleteOrder(int OrderNo) {
-		return os.deleteOrder(OrderNo);
+	public int deleteOrder(int orderNo) {
+		return os.deleteOrder(orderNo);
+	}
+	
+	public OrdersDto selectRestNoByOrder(int orderNo) {
+		return os.selectRestNoByOrder(orderNo);
 	}
 	
 }

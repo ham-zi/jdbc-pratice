@@ -10,7 +10,7 @@ public class OrdersDto {
 	private int quantity;
 	private Date orderDate;
 	private String status;
-	
+	private int restNo;
 	private String memberName;
 	private String restName;
 	private String menuName;
@@ -20,6 +20,36 @@ public class OrdersDto {
 		super();
 	}
 	
+
+
+	public int getRestNo() {
+		return restNo;
+	}
+
+
+
+	public void setRestNo(int restNo) {
+		this.restNo = restNo;
+	}
+
+
+
+	public OrdersDto(int orderNo, int memberNo, int menuNo, int quantity, Date orderDate, String status, int restNo,
+			String memberName, String restName, String menuName, int price) {
+		super();
+		this.orderNo = orderNo;
+		this.memberNo = memberNo;
+		this.menuNo = menuNo;
+		this.quantity = quantity;
+		this.orderDate = orderDate;
+		this.status = status;
+		this.restNo = restNo;
+		this.memberName = memberName;
+		this.restName = restName;
+		this.menuName = menuName;
+		this.price = price;
+	}
+
 
 
 	@Override

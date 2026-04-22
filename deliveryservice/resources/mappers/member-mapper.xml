@@ -62,14 +62,14 @@
   		       REVIEW
   		       (
   		       REVIEW_NO
-  		     , ORDER_NO
+  		     , REST_NO
   		     , MEMBER_NO
   		     , REVIEW_STAR
   		       )
   		VALUES
   		       (
   		       SEQ_REVIEW_NO.NEXTVAL
-  		     , #{orderNo}  
+  		     , #{restNo}  
   		     , #{memberNo}
   		     , #{reviewStar} 
   		       )

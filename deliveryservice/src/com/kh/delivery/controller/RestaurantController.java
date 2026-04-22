@@ -1,5 +1,13 @@
 package com.kh.delivery.controller;
 
-public class RestaurantController {
+import com.kh.delivery.service.RestaurantService;
 
+public class RestaurantController {
+	
+	RestaurantService rs = new RestaurantService();
+
+	
+	public void selectRestaurants() {
+		rs.selectRestaurants();
+	}
 }

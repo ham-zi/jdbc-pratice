@@ -8,9 +8,18 @@ public class RestaurantDto {
 	private String category;
 	private int minPrice;
 	private int deliveryFee;
+	private double avgStar;
 	
 	public RestaurantDto() {
 		super();
+	}
+
+	public double getAvgStar() {
+		return avgStar;
+	}
+
+	public void setAvgStar(double avgStar) {
+		this.avgStar = avgStar;
 	}
 
 	public RestaurantDto(String restName, String category, int minPrice, int deliveryFee) {
@@ -28,6 +37,18 @@ public class RestaurantDto {
 		this.category = category;
 		this.minPrice = minPrice;
 		this.deliveryFee = deliveryFee;
+	}
+	
+	
+
+	public RestaurantDto(int restNo, String restName, String category, int minPrice, int deliveryFee, double avgStar) {
+		super();
+		this.restNo = restNo;
+		this.restName = restName;
+		this.category = category;
+		this.minPrice = minPrice;
+		this.deliveryFee = deliveryFee;
+		this.avgStar = avgStar;
 	}
 
 	public int getRestNo() {

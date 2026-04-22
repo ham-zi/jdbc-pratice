@@ -58,6 +58,13 @@ public class OrderService {
 		return result;
 	}
 	
+	public OrdersDto selectRestNoByOrder(int orderNo) {
+		SqlSession session = Template.getSqlSession();
+		OrdersDto result = od.selectRestNoByOrder(session, orderNo);
+		session.close();
+		return result;
+	}
+	
 	private boolean availableDeleteOrder(int orderNo) {
 		SqlSession session = Template.getSqlSession();
 		OrdersDto order = od.availableDeleteOrder(session, orderNo);

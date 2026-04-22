@@ -17,9 +17,6 @@ public class MemberController {
 	}
 	
 	public int insertReview(ReviewDto review) {
-		System.out.println(review.getMemberNo());
-		System.out.println(review.getOrderNo());
-		System.out.println(review.getReviewStar());
 		return ms.insertReview(review);
 	}
 	

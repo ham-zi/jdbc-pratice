@@ -14,9 +14,26 @@
   		     , DELIVERY_FEE
   		  FROM
   		       RESTAURANT
+  		  JOIN
+  		       REVIEW USING()
   		 ORDER
   		    BY
   		       REST_NO
   	</select>
   
+  	<select id="selectAvgStar" resultType="restaurant">
+		SELECT
+		 	   REST_NO
+		     , AVG(REVIEW_STAR)
+		  FROM
+		       REVIEW
+		  JOIN 
+		       MENU USING(REST_NO)
+		  JOIN
+		       ORDERS USING(MENU_NO)
+		 GROUP
+		    BY
+		       REST_NO
+  	</select>
+
   </mapper>

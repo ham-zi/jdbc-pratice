@@ -14,7 +14,7 @@ public class OrderDao {
 	}
 	
 	public MenuDto availableMenu(SqlSession session, int menuNo) {
-		return session.selectOne("ordersMapper.availableMenus",menuNo);
+		return session.selectOne("ordersMapper.availableMenu",menuNo);
 	}
 
 	public List<OrdersDto> selectMyOrders(SqlSession session, int memberNo){
@@ -27,5 +27,9 @@ public class OrderDao {
 	
 	public OrdersDto availableDeleteOrder(SqlSession session, int orderNo) {
 		return session.selectOne("ordersMapper.availableDeleteOrder", orderNo);
+	}
+	
+	public OrdersDto selectRestNoByOrder(SqlSession session, int orderNo) {
+		return session.selectOne("ordersMapper.selectRestNoByOrder",orderNo);
 	}
 }
