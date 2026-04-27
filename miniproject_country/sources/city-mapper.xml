@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="cityMapper">
+  
+	  <select id="selectCities" resultType="city">
+	  	SELECT 
+	  	       CITY_NO
+	  	     , CITY_NAME
+	  	     , LOCAL_PRODUCT
+	  	     , HOT_PLACE
+	  	     , CITY_POPULATION
+	  	     , CITY_AREA
+	  	     , PROVINCE_NO
+	  	  FROM 
+	  	       CITY
+	  	 ORDER 
+	  	    BY 
+	  	       CITY_NO
+	  </select>
+	  
+	  <select id="selectCityByNo" resultType="city">
+	  	SELECT 
+	  	       CITY_NO
+	  	     , CITY_NAME
+	  	     , LOCAL_PRODUCT
+	  	     , HOT_PLACE
+	  	     , CITY_POPULATION
+	  	     , CITY_AREA
+	  	     , PROVINCE_NO
+	  	  FROM 
+	  	       CITY
+	  	 WHERE 
+	  	       CITY_NO = #{cityNo}
+	  	 ORDER 
+	  	    BY 
+	  	       CITY_NO
+	  </select>
+	  
+	  <select id="selectCityByHotPlace" resultType="cityPname">
+	  	SELECT
+	  	       CITY_NO
+	  	     , PROVINCE_NAME
+	  	     , CITY_NAME
+	  	     , LOCAL_PRODUCT
+	  	     , HOT_PLACE
+	  	  FROM
+	  	       CITY
+	  	  JOIN 	 
+	  	       PROVINCE USING(PROVINCE_NO)
+	  	 WHERE
+	  	       HOT_PLACE LIKE '%'||#{hotPlace}||'%'
+	  	 ORDER
+	  	    BY 
+	  	       CITY_NO
+	  </select>
+	  
+	  <select id="selectCityByProduct" resultType="cityPname">
+	    SELECT
+	  	       CITY_NO
+	  	     , PROVINCE_NAME
+	  	     , CITY_NAME
+	  	     , LOCAL_PRODUCT
+	  	     , HOT_PLACE
+	  	  FROM
+	  	       CITY
+	  	  JOIN 	 
+	  	       PROVINCE USING(PROVINCE_NO)
+	  	 WHERE
+	  	       LOCAL_PRODUCT LIKE '%'||#{product}||'%'
+	  	 ORDER
+	  	    BY 
+	  	       CITY_NO
+	  </select>
+	  
+	  <insert id="insertCity">
+	  	INSERT
+	  	  INTO
+	  	       CITY
+	  	       (
+			   CITY_NAME
+	  	     , LOCAL_PRODUCT
+	  	     , HOT_PLACE
+	  	     , CITY_POPULATION
+	  	     , CITY_AREA
+	  	     , PROVINCE_NO
+			   )
+	  	VALUES 
+	  		   (
+	  	  	   #{cityName}
+	  	     , #{localProduct}
+	  	     , #{hotPlace}
+	  	     , #{cityPopulation}
+	  	     , #{cityArea}
+	  	     , #{provinceNo}
+	  	       )
+	  </insert>
+	  
+	  <update id="updateCity">
+	  	UPDATE
+	  	       CITY
+	  	   SET
+	  	       CITY_NAME = #{cityName}
+	  	     , LOCAL_PRODUCT = #{localProduct}
+	  	     , HOT_PLACE = #{hotPlace}
+	  	     , CITY_POPULATION = #{cityPopulation}
+	  	     , CITY_AREA = #{cityArea}
+	  	     , PROVINCE_NO = #{provinceNo}
+	  	 WHERE
+	  	       CITY_NO = #{cityNo}  
+	  </update>
+	  
+	  <delete id="deleteCity">
+		  DELETE 
+		    FROM 
+		         CITY
+		   WHERE
+		         CITY_NO = #{cityNo}
+	  </delete>
+  
+  
+  </mapper>

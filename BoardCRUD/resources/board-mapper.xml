@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardMapper">
+
+
+
+	<select id="selectAll" resultType="board">
+		SELECT
+		       BOARD_NO
+		     , TITLE
+		     , CONTENT
+		     , WRITEN_DATE
+		     , PASSWORD
+		  FROM 
+		       BOARD
+		 ORDER
+		    BY
+		       BOARD_NO
+	</select>
+
+	<insert id="createBoard">
+		INSERT 
+		  INTO
+		       BOARD
+		       (
+			   TITLE
+		     , CONTENT
+		     , PASSWORD
+			   )
+	    VALUES
+	           (
+			   #{title}
+			 , #{content}
+			 , #{password}
+			   )
+	</insert>
+
+
+</mapper>
+
+
+

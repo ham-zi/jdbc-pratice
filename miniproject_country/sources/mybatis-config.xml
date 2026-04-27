@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="miniproject_country.com.kh.province.model.dto.ProvinceDto" alias="province"/>
+		<typeAlias type="miniproject_country.com.kh.province.model.dto.ProvinceInfoDto" alias="provinceInfo" />
+		<typeAlias type="miniproject_country.com.kh.city.model.dto.CityDto" alias="city"/>
+		<typeAlias type="miniproject_country.com.kh.city.model.dto.CityPnameDto" alias="cityPname" />
+	</typeAliases>
+
+	<environments default="deployment">
+		<environment id="deployment">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+				<property name="username" value="system" />
+				<property name="password" value="1234" />
+			</dataSource>
+		</environment>
+	</environments>
+  
+  
+  	<mappers>
+  		<mapper resource="city-mapper.xml"/>
+  		<mapper resource="province-mapper.xml"/>
+  	</mappers>
+  </configuration>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="provinceMapper" >
+  
+	  <select id="selectProvinces" resultType="province">
+	  	SELECT
+	  	       PROVINCE_NO
+	  	     , PROVINCE_NAME
+	  	     , LOCAL_NO
+	  	  FROM
+	  	       PROVINCE
+	  	 ORDER
+	  	    BY
+	  	       PROVINCE_NO
+	  </select>
+	
+		
+	  <select id="selectProvince" resultType="provinceInfo">
+	  	SELECT
+	  	       PROVINCE_NO
+	  	     , PROVINCE_NAME
+	  	     , LOCAL_NO
+	  	     , (SELECT SUM(CITY_POPULATION) FROM CITY WHERE PROVINCE_NO = #{provinceNo} GROUP BY PROVINCE_NO) AS totalPopulation
+	  	     , (SELECT SUM(CITY_AREA) FROM CITY WHERE PROVINCE_NO = #{provinceNo} GROUP BY PROVINCE_NO) AS totalArea
+	  	  FROM
+	  	       PROVINCE
+	  	  JOIN
+	  	       CITY USING(PROVINCE_NO)
+	  	 WHERE
+	  	       PROVINCE_NO = #{provinceNo}
+	  </select>
+	
+      <resultMap id="provinceWithCities" type="province">
+      	 
+      	 <id column="PROVINCE_NO" property="provinceNo"/>
+      	 <result column="PROVINCE_NAME" property="provinceName"/>
+      	 
+      	 <collection property="cities" ofType="city">
+      	 	
+      	 	<id column="CITY_NO" property="cityNo"/>
+      	 	<result column="CITY_NAME" property="cityName"/>
+      	 	<result column="LOCAL_PRODUCT" property="localProduct"/>
+      	 	<result column="HOT_PLACE" property="hotPlace"/>
+      	 
+      	 </collection>
+      	 
+      </resultMap>	
+	
+	  <select id="selectAllByProduct" resultMap="provinceWithCities">
+	    SELECT
+	           PROVINCE_NO
+		     , PROVINCE_NAME
+		     , CITY_NO
+		     , CITY_NAME
+		     , LOCAL_PRODUCT
+		     , HOT_PLACE
+		  FROM
+		       PROVINCE
+		  JOIN
+		       CITY USING(PROVINCE_NO)
+		 WHERE
+		       PROVINCE_NO = #{provinceNo}
+	  </select>
+	  
+	  <insert id="insertProvince">
+	  	INSERT
+	  	  INTO
+	  	       PROVINCE
+	  	       (
+	  	       PROVINCE_NAME
+	  	     , LOCAL_NO 
+	  	       )
+	  	VALUES
+	  	       (
+	  	       #{provinceName}
+	  	     , #{localNo}
+	  	       )
+	  </insert>
+	  
+	  <update id="updateProvince">
+	  	UPDATE
+	  	       PROVINCE
+	  	   SET
+			   PROVINCE_NAME = #{provinceName}
+			 , LOCAL_NO = #{localNo}	
+	     WHERE
+	           PROVINCE_NO = #{provinceNo}
+	  </update>
+	  
+	  <delete id="deleteProvince">
+	  	DELETE
+	  	  FROM
+	  	       PROVINCE
+	  	 WHERE
+	  	       PROVINCE_NO = #{provinceNo} 
+	  </delete>
+	  
+	  
+	  <delete id=""></delete>
+  
+  
+  </mapper>
