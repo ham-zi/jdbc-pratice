@@ -5,9 +5,7 @@
 
 <mapper namespace="boardMapper">
 
-
-
-	<select id="selectAll" resultType="board">
+	<sql id="selectBoardColumn">
 		SELECT
 		       BOARD_NO
 		     , TITLE
@@ -16,9 +14,20 @@
 		     , PASSWORD
 		  FROM 
 		       BOARD
+	</sql>
+
+	<select id="selectAll" resultType="board">
+		<include refid="selectBoardColumn"/>
 		 ORDER
 		    BY
 		       BOARD_NO
+	</select>
+	
+	<select id="findBoardByNo" resultType="board">
+		<include refid="selectBoardColumn"/>
+		WHERE
+		      BOARD_NO = #{boardNo}
+		       
 	</select>
 
 	<insert id="createBoard">
@@ -38,6 +47,13 @@
 			   )
 	</insert>
 
+	<delete id="deleteBoard">
+		DELETE
+		  FROM
+		       BOARD
+		 WHERE
+		       BOARD_NO
+	</delete>
 
 </mapper>
 

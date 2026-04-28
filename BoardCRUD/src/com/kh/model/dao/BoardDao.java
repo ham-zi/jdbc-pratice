@@ -15,4 +15,12 @@ public class BoardDao {
 	public List<BoardDto> selectBoard(SqlSession session) {
 		return session.selectList("boardMapper.selectAll");
 	}
+	
+	public int deleteBoard(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteBoard", boardNo);
+	}
+	
+	public BoardDto findBoardByNo(SqlSession session,int boardNo) {
+		return session.selectOne("boardMapper.findBoardByNo",boardNo);
+	}
 }

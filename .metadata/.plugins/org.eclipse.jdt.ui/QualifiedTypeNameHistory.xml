@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.lang.Class"/>
     <fullyQualifiedTypeName name="com.kh.species.model.dto.SpeciesDto"/>
     <fullyQualifiedTypeName name="com.kh.model.dto.OracleDto"/>
@@ -12,8 +11,11 @@
     <fullyQualifiedTypeName name="com.kh.template.Template"/>
     <fullyQualifiedTypeName name="com.kh.animal.common.Template"/>
     <fullyQualifiedTypeName name="com.kh.animal.controller.KeeperController"/>
-    <fullyQualifiedTypeName name="java.lang.StringIndexOutOfBoundsException"/>
     <fullyQualifiedTypeName name="miniproject_country.com.kh.common.Template"/>
-    <fullyQualifiedTypeName name="org.apache.ibatis.io.Resources"/>
     <fullyQualifiedTypeName name="com.kh.delivery.common.Template"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="com.kh.controller.BoardController"/>
+    <fullyQualifiedTypeName name="org.apache.ibatis.io.Resources"/>
+    <fullyQualifiedTypeName name="com.kh.common.Template"/>
+    <fullyQualifiedTypeName name="java.lang.StringIndexOutOfBoundsException"/>
 </qualifiedTypeNameHistroy>

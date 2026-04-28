@@ -1,9 +1,11 @@
 package com.kh.view;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import com.kh.controller.BoardController;
+import com.kh.exception.NotFoundBoardException;
 import com.kh.model.dto.BoardDto;
 
 public class BoardView {
@@ -87,7 +89,28 @@ public class BoardView {
 		
 	}
 	private void deleteBoard() {
-		
+		selectAll();
+		int boardNo=0;
+		System.out.println("게시물 삭제하겠습니다.");
+		System.out.print("게시물 번호 입력>");
+		try {
+			boardNo = sc.nextInt();
+			sc.nextLine();
+			System.out.println("게시물 비밀번호 입력>");
+			String password = sc.nextLine();
+			int result = bc.deleteBoard(boardNo, password);
+			if(result>0) {
+				System.out.println("계정 삭제 성공");
+			} else {
+				System.out.println("계정 삭제 실패");
+			}
+		} catch(InputMismatchException e) {
+			System.out.println("게시물의 숫자를 입력하세요.");
+			return;
+		} catch(NotFoundBoardException e) {
+			System.out.println("존재하지 않는 게시물번호입니다.");
+			return;
+		}
 	}
 	
 }

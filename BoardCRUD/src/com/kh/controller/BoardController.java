@@ -17,4 +17,8 @@ public class BoardController {
 	public List<BoardDto> selectAll() {
 		return bs.selectAll();
 	}
+	
+	public int deleteBoard(int boardNo,String password) {
+		return bs.deleteBoard(boardNo, password);
+	}
 }
